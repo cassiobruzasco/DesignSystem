@@ -3,6 +3,7 @@ package com.cassiobruzasco.design_system.components.dialog
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +36,7 @@ import com.cassiobruzasco.design_system.components.button.DsButton
 import com.cassiobruzasco.design_system.components.button.DsButtonStyle
 import com.cassiobruzasco.design_system.components.button.PrimaryDefaultButton
 import com.cassiobruzasco.design_system.components.button.SecondaryDefaultButton
+import com.cassiobruzasco.design_system.components.input.DsValueInput
 import com.cassiobruzasco.design_system.theme.ColorToken
 import com.cassiobruzasco.design_system.theme.ColorToken.background_primary
 import com.cassiobruzasco.design_system.theme.ColorToken.content_primary
@@ -297,7 +299,9 @@ private fun DsDialogCustomPreview() {
         icon = R.drawable.ic_lock,
         shouldButtonFillRow = true,
         customComponent = {
-            Switch(checked = true, onCheckedChange = {})
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                DsValueInput {  }
+            }
         },
         firstButtonStyle = PrimaryDefaultButton(isCompact = true),
         firstButtonText = "Primary",

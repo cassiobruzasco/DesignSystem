@@ -229,6 +229,7 @@ private fun InternalButtonIcon(style: DsButtonStyle, text: String?) {
 @Composable
 private fun PrimaryButtonPreview() {
     Column(
+        modifier = Modifier.padding(vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -271,6 +272,7 @@ private fun PrimaryButtonPreview() {
 @Composable
 private fun SecondaryButtonPreview() {
     Column(
+        modifier = Modifier.padding(vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -313,6 +315,7 @@ private fun SecondaryButtonPreview() {
 @Composable
 private fun GhostButtonPreview() {
     Column(
+        modifier = Modifier.padding(vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -355,6 +358,7 @@ private fun GhostButtonPreview() {
 @Composable
 private fun AlertButtonPreview() {
     Column(
+        modifier = Modifier.padding(vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -376,7 +380,7 @@ private fun AlertButtonPreview() {
                     2 -> AlertDefaultButton(isLoading = true)
                     3 -> AlertDefaultButton(isDisabled = true)
                     4 -> AlertDefaultButton(
-                        iconRes = R.drawable.ic_info,
+                        iconRes = R.drawable.ic_lock,
                         iconPosition = DsButtonIconPosition.TrailingIcon
                     )
 

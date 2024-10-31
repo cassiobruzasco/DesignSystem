@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -194,7 +193,7 @@ fun DsInput(
 
                 inputType is InputType.Clear -> if (text.isNotEmpty()) {
                     {
-                        inputType.ClearTrailingIcon(inputType.iconRes, isError) {
+                        inputType.ClearTrailingIcon(inputType.iconRes, false) {
                             onValueChange(
                                 "",
                             )
@@ -470,9 +469,7 @@ sealed class InputType {
 private fun TextInputWithLabelPreview() {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .background(ColorToken.content_white),
+            .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -571,39 +568,6 @@ private fun TextInputWithLabelPreview() {
                     isEnabled = true,
                     inputType = InputType.Password,
                     onValueChange = {},
-                )
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DsTextInputWithPlaceHolderTest() {
-    Column(
-        modifier = Modifier
-            .padding(10.dp)
-            .verticalScroll(rememberScrollState())
-            .background(ColorToken.content_white),
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        var textToBeInserted by remember { mutableStateOf("") }
-
-        repeat(1) { index ->
-            when (index) {
-                0 -> DsInput(
-                    label = "Insert the text to display",
-                    hint = "No Text Inserted Yet",
-                    text = textToBeInserted,
-                    isCompact = true,
-                    isError = false,
-                    isEnabled = true,
-                    iconRes = R.drawable.ic_lock,
-                    iconPosition = IconPosition.Leading,
-                    onValueChange = {
-                        textToBeInserted = it
-                    },
                 )
             }
         }
