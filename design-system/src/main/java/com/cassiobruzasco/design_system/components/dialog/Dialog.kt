@@ -33,14 +33,12 @@ import com.cassiobruzasco.design_system.R
 import com.cassiobruzasco.design_system.clickInteraction
 import com.cassiobruzasco.design_system.components.button.DsButton
 import com.cassiobruzasco.design_system.components.button.DsButtonStyle
-import com.cassiobruzasco.design_system.components.button.PrimaryCompactButton
-import com.cassiobruzasco.design_system.components.button.SecondaryCompactButton
-import com.cassiobruzasco.design_system.components.dropdown.DsDropDown
+import com.cassiobruzasco.design_system.components.button.PrimaryDefaultButton
+import com.cassiobruzasco.design_system.components.button.SecondaryDefaultButton
 import com.cassiobruzasco.design_system.theme.ColorToken
 import com.cassiobruzasco.design_system.theme.ColorToken.background_primary
 import com.cassiobruzasco.design_system.theme.ColorToken.content_primary
 import com.cassiobruzasco.design_system.theme.ColorToken.content_secondary
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 import com.cassiobruzasco.design_system.theme.FontToken
 
 /**
@@ -72,7 +70,7 @@ fun DsDialog(
     customIcon: (@Composable () -> Unit)? = null,
     customComponent: (@Composable () -> Unit)? = null,
     shouldButtonFillRow: Boolean = false,
-    firstButtonStyle: DsButtonStyle = PrimaryCompactButton(),
+    firstButtonStyle: DsButtonStyle = PrimaryDefaultButton(isCompact = true),
     firstButtonText: String? = null,
     onFirstButtonClick: () -> Unit = { },
     secondButtonStyle: DsButtonStyle? = null,
@@ -85,7 +83,7 @@ fun DsDialog(
         content = {
             Card(
                 modifier = Modifier.sizeIn(minWidth = 312.dp),
-                shape = RoundedCornerShape(6.dp),
+                shape = RoundedCornerShape(12.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
                 colors = CardDefaults.cardColors(background_primary),
             ) {
@@ -216,7 +214,8 @@ fun DsDialog(
                         }
                     }
                 } ?: kotlin.run {
-                    val fillModifier = if (shouldButtonFillRow) Modifier.fillMaxWidth() else Modifier
+                    val fillModifier =
+                        if (shouldButtonFillRow) Modifier.fillMaxWidth() else Modifier
                     DsButton(
                         modifier = fillModifier
                             .padding(horizontal = 20.dp)
@@ -238,79 +237,69 @@ fun DsDialog(
 @Preview(showBackground = true)
 @Composable
 private fun DsDialogSingleButtonPreview() {
-    DesignSystemTheme {
-        DsDialog(
-            title = "Title",
-            body = "Lorem ipsum dolor sit amet consectetur.",
-            icon = R.drawable.ic_lock,
-            firstButtonStyle = PrimaryCompactButton(),
-            firstButtonText = "Ok",
-        )
-    }
+    DsDialog(
+        title = "Title",
+        body = "Lorem ipsum dolor sit amet consectetur.",
+        icon = R.drawable.ic_lock,
+        firstButtonStyle = PrimaryDefaultButton(isCompact = true),
+        firstButtonText = "Ok",
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DsDialogSingleButtonFillPreview() {
-    DesignSystemTheme {
-        DsDialog(
-            title = "Title",
-            body = "Lorem ipsum dolor sit amet consectetur.",
-            icon = R.drawable.ic_lock,
-            shouldButtonFillRow = true,
-            firstButtonStyle = PrimaryCompactButton(),
-            firstButtonText = "Ok",
-        )
-    }
+    DsDialog(
+        title = "Title",
+        body = "Lorem ipsum dolor sit amet consectetur.",
+        icon = R.drawable.ic_lock,
+        shouldButtonFillRow = true,
+        firstButtonStyle = PrimaryDefaultButton(isCompact = true),
+        firstButtonText = "Ok",
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DsDialogTwoButtonsPreview() {
-    DesignSystemTheme {
-        DsDialog(
-            title = "Title",
-            body = "Lorem ipsum dolor sit amet consectetur.",
-            icon = R.drawable.ic_lock,
-            firstButtonStyle = SecondaryCompactButton(),
-            secondButtonStyle = PrimaryCompactButton(),
-            firstButtonText = "Secondary",
-            secondButtonText = "Primary",
-        )
-    }
+    DsDialog(
+        title = "Title",
+        body = "Lorem ipsum dolor sit amet consectetur.",
+        icon = R.drawable.ic_lock,
+        firstButtonStyle = SecondaryDefaultButton(isCompact = true),
+        secondButtonStyle = PrimaryDefaultButton(isCompact = true),
+        firstButtonText = "Secondary",
+        secondButtonText = "Primary",
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DsDialogTwoButtonsFillPreview() {
-    DesignSystemTheme {
-        DsDialog(
-            title = "Title",
-            body = "Lorem ipsum dolor sit amet consectetur.",
-            icon = R.drawable.ic_lock,
-            shouldButtonFillRow = true,
-            firstButtonStyle = SecondaryCompactButton(),
-            secondButtonStyle = PrimaryCompactButton(),
-            firstButtonText = "Secondary",
-            secondButtonText = "Primary",
-        )
-    }
+    DsDialog(
+        title = "Title",
+        body = "Lorem ipsum dolor sit amet consectetur.",
+        icon = R.drawable.ic_lock,
+        shouldButtonFillRow = true,
+        firstButtonStyle = SecondaryDefaultButton(isCompact = true),
+        secondButtonStyle = PrimaryDefaultButton(isCompact = true),
+        firstButtonText = "Secondary",
+        secondButtonText = "Primary",
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DsDialogCustomPreview() {
-    DesignSystemTheme {
-        DsDialog(
-            title = "Title",
-            body = "Lorem ipsum dolor sit amet consectetur.",
-            icon = R.drawable.ic_lock,
-            shouldButtonFillRow = true,
-            customComponent = {
-                Switch(checked = true, onCheckedChange = {})
-            },
-            firstButtonStyle = PrimaryCompactButton(),
-            firstButtonText = "Primary",
-        )
-    }
+    DsDialog(
+        title = "Title",
+        body = "Lorem ipsum dolor sit amet consectetur.",
+        icon = R.drawable.ic_lock,
+        shouldButtonFillRow = true,
+        customComponent = {
+            Switch(checked = true, onCheckedChange = {})
+        },
+        firstButtonStyle = PrimaryDefaultButton(isCompact = true),
+        firstButtonText = "Primary",
+    )
 }

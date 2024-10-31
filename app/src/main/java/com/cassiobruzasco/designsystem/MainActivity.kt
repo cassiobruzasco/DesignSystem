@@ -35,13 +35,12 @@ import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.designsystem.components.ButtonComposable
 import com.cassiobruzasco.design_system.components.bottomsheet.DsBottomSheet
 import com.cassiobruzasco.design_system.components.button.DsButton
-import com.cassiobruzasco.design_system.components.button.PrimaryRoundCompactButton
+import com.cassiobruzasco.design_system.components.button.PrimaryDefaultButton
 import com.cassiobruzasco.design_system.components.toast.DsToast
 import com.cassiobruzasco.design_system.components.toast.ToastDuration
 import com.cassiobruzasco.design_system.components.toast.ToastState
 import com.cassiobruzasco.design_system.components.toast.ToastType
 import com.cassiobruzasco.design_system.theme.ColorToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 import com.cassiobruzasco.design_system.theme.FontToken
 import com.cassiobruzasco.designsystem.components.ShimmerComposable
 import com.cassiobruzasco.designsystem.components.TextInputComposable
@@ -53,67 +52,65 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DesignSystemTheme {
-                var toast by remember {
-                    mutableStateOf<ToastState?>(null)
+            var toast by remember {
+                mutableStateOf<ToastState?>(null)
+            }
+            val toastState = ToastState(
+                title = "Toast demo!",
+                body = "This is an example of how toasts look and how they animate from the top of the screen.",
+                toastType = ToastType.NEUTRAL,
+                duration = ToastDuration.Short,
+                isVisible = false,
+                onClick = {
+                    toast = toast?.copy(isVisible = false)
                 }
-                val toastState = ToastState(
-                    title = "Toast demo!",
-                    body = "This is an example of how toasts look and how they animate from the top of the screen.",
-                    toastType = ToastType.NEUTRAL,
-                    duration = ToastDuration.Short,
-                    isVisible = false,
-                    onClick = {
-                        toast = toast?.copy(isVisible = false)
+            )
+
+            LaunchedEffect(Unit) {
+                toast = toastState
+            }
+
+            var toastStyleCount by remember { mutableIntStateOf(0) }
+
+            LaunchedEffect(toast, toastStyleCount) {
+                toast?.let {
+                    when (toastStyleCount) {
+                        1 -> toast = it.copy(toastType = ToastType.NEUTRAL)
+                        2 -> toast = it.copy(toastType = ToastType.INFO)
+                        3 -> toast = it.copy(toastType = ToastType.INFO_ACCENT_LEFT)
+                        4 -> toast = it.copy(toastType = ToastType.INFO_ACCENT_TOP)
+                        5 -> toast = it.copy(toastType = ToastType.INFO_FILLED)
+                        6 -> toast = it.copy(toastType = ToastType.SUCCESS)
+                        7 -> toast = it.copy(toastType = ToastType.SUCCESS_ACCENT_LEFT)
+                        8 -> toast = it.copy(toastType = ToastType.SUCCESS_ACCENT_TOP)
+                        9 -> toast = it.copy(toastType = ToastType.SUCCESS_FILLED)
+                        10 -> toast = it.copy(toastType = ToastType.WARNING)
+                        11 -> toast = it.copy(toastType = ToastType.WARNING_ACCENT_LEFT)
+                        12 -> toast = it.copy(toastType = ToastType.WARNING_ACCENT_TOP)
+                        13 -> toast = it.copy(toastType = ToastType.WARNING_FILLED)
+                        14 -> toast = it.copy(toastType = ToastType.ERROR)
+                        15 -> toast = it.copy(toastType = ToastType.ERROR_ACCENT_LEFT)
+                        16 -> toast = it.copy(toastType = ToastType.ERROR_ACCENT_TOP)
+                        17 -> toast = it.copy(toastType = ToastType.ERROR_FILLED)
+                        else -> toast = it.copy(toastType = ToastType.NEUTRAL)
                     }
-                )
-
-                LaunchedEffect(Unit) {
-                    toast = toastState
-                }
-
-                var toastStyleCount by remember { mutableIntStateOf(0) }
-
-                LaunchedEffect(toast, toastStyleCount) {
-                    toast?.let {
-                        when (toastStyleCount) {
-                            1 -> toast = it.copy(toastType = ToastType.NEUTRAL)
-                            2 -> toast = it.copy(toastType = ToastType.INFO)
-                            3 -> toast = it.copy(toastType = ToastType.INFO_ACCENT_LEFT)
-                            4 -> toast = it.copy(toastType = ToastType.INFO_ACCENT_TOP)
-                            5 -> toast = it.copy(toastType = ToastType.INFO_FILLED)
-                            6 -> toast = it.copy(toastType = ToastType.SUCCESS)
-                            7 -> toast = it.copy(toastType = ToastType.SUCCESS_ACCENT_LEFT)
-                            8 -> toast = it.copy(toastType = ToastType.SUCCESS_ACCENT_TOP)
-                            9 -> toast = it.copy(toastType = ToastType.SUCCESS_FILLED)
-                            10 -> toast = it.copy(toastType = ToastType.WARNING)
-                            11 -> toast = it.copy(toastType = ToastType.WARNING_ACCENT_LEFT)
-                            12 -> toast = it.copy(toastType = ToastType.WARNING_ACCENT_TOP)
-                            13 -> toast = it.copy(toastType = ToastType.WARNING_FILLED)
-                            14 -> toast = it.copy(toastType = ToastType.ERROR)
-                            15 -> toast = it.copy(toastType = ToastType.ERROR_ACCENT_LEFT)
-                            16 -> toast = it.copy(toastType = ToastType.ERROR_ACCENT_TOP)
-                            17 -> toast = it.copy(toastType = ToastType.ERROR_FILLED)
-                            else -> toast = it.copy(toastType = ToastType.NEUTRAL)
-                        }
-                        if (it.isVisible) {
-                            delay(it.duration.time)
-                            toast = it.copy(isVisible = false)
-                        }
+                    if (it.isVisible) {
+                        delay(it.duration.time)
+                        toast = it.copy(isVisible = false)
                     }
                 }
-                DemoActivityContent {
-                    toast = toast?.copy(isVisible = true)
-                    toastStyleCount++
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 20.dp, vertical = 40.dp)
-                ) {
-                    toast?.let {
-                        DsToast(toast = it)
-                    }
+            }
+            DemoActivityContent {
+                toast = toast?.copy(isVisible = true)
+                toastStyleCount++
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp, vertical = 40.dp)
+            ) {
+                toast?.let {
+                    DsToast(toast = it)
                 }
             }
         }
@@ -146,7 +143,7 @@ private fun DemoActivityContent(
             DsButton(
                 modifier = Modifier.sizeIn(maxWidth = 90.dp),
                 text = "Toast",
-                style = PrimaryRoundCompactButton()
+                style = PrimaryDefaultButton(isCompact = true)
             ) {
                 showToast()
             }
@@ -228,6 +225,7 @@ private fun DemoActivityContent(
                     setLoading = { currentItemSelected = item.copy(isLoading = it) },
                     setDisabled = { currentItemSelected = item.copy(isDisabled = it) },
                     setIconPosition = { currentItemSelected = item.copy(iconPosition = it) },
+                    setCompact = { currentItemSelected = item.copy(isCompact = it) },
                 )
             }
 
@@ -263,7 +261,5 @@ private fun DemoActivityContent(
 @Preview(showBackground = true)
 @Composable
 fun DemoActivityPreview() {
-    DesignSystemTheme {
-        DemoActivityContent()
-    }
+    DemoActivityContent()
 }

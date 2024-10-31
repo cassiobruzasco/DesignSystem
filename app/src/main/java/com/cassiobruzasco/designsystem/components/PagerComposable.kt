@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.design_system.components.button.DsButton
-import com.cassiobruzasco.design_system.components.button.PrimaryRoundDefaultButton
+import com.cassiobruzasco.design_system.components.button.PrimaryDefaultButton
 import com.cassiobruzasco.design_system.components.pager.DsPager
 import com.cassiobruzasco.design_system.theme.ColorToken
 import com.cassiobruzasco.design_system.theme.FontToken
@@ -95,7 +95,7 @@ private fun ThirdPage(
         DsButton(
             modifier = Modifier.padding(top = 10.dp),
             text = "Close",
-            style = PrimaryRoundDefaultButton(),
+            style = PrimaryDefaultButton(),
             onClick = dismiss
         )
 }

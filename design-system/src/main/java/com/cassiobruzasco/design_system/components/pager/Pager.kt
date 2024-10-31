@@ -33,7 +33,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.design_system.theme.ColorToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 
 /**
  * NsPager composable for displaying a horizontal pager with indicators.
@@ -43,14 +42,12 @@ import com.cassiobruzasco.design_system.theme.DesignSystemTheme
  * and adds indicator functionality.
  *
  * @param modifier Modifier to be applied to the pager container.
- * @param pageCount Number of pages in the pager.
  * @param pagerState [PagerState] to control the pager's state.
  * @param pageContent Content for each page in the pager.
  *
  * **Example:**
  *
  *          NsPager(
- *              pageCount = 4,
  *              pagerState = rememberPagerState(),
  *              pageContent = { page ->
  *                  Text(text = "Page $page")
@@ -71,7 +68,10 @@ fun DsPager(
         HorizontalPager(
             modifier = Modifier.weight(1f),
             state = pagerState,
-            pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(pagerState, Orientation.Horizontal),
+            pageNestedScrollConnection = PagerDefaults.pageNestedScrollConnection(
+                pagerState,
+                Orientation.Horizontal
+            ),
             pageContent = { page ->
                 AnimatedVisibility(
                     visible = pagerState.currentPage == page,
@@ -120,25 +120,23 @@ private fun PagerIndicator(isSelected: Boolean) {
 @Preview(showBackground = true)
 @Composable
 private fun NsPagerPreview() {
-    DesignSystemTheme {
-        Box(modifier = Modifier.fillMaxSize()) {
-            DsPager(
-                pagerState = rememberPagerState { 4 },
-            ) {
-                val color = when (it) {
-                    0 -> ColorToken.content_alert_error
-                    1 -> ColorToken.background_alert_info
-                    2 -> ColorToken.content_alert_warning
-                    else -> ColorToken.content_alert_success
-                }
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color),
-                    text = "Page $it \n content goes here",
-                    textAlign = TextAlign.Center,
-                )
+    Box(modifier = Modifier.fillMaxSize()) {
+        DsPager(
+            pagerState = rememberPagerState { 4 },
+        ) {
+            val color = when (it) {
+                0 -> ColorToken.content_alert_error
+                1 -> ColorToken.background_alert_info
+                2 -> ColorToken.content_alert_warning
+                else -> ColorToken.content_alert_success
             }
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color),
+                text = "Page $it \n content goes here",
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }

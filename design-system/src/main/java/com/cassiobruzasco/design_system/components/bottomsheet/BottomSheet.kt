@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.design_system.R
 import com.cassiobruzasco.design_system.clickInteraction
 import com.cassiobruzasco.design_system.theme.ColorToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 import com.cassiobruzasco.design_system.theme.FontToken
 import kotlinx.coroutines.launch
 
@@ -96,24 +95,22 @@ fun DsBottomSheet(
 @Preview(showBackground = true)
 @Composable
 private fun DsBottomSheetPreview() {
-    DesignSystemTheme {
-        DsBottomSheet(
-            title = "Title",
-            hasCloseIcon = true,
-            openBottomSheet = true,
-            onDismiss = {},
-            customCloseAction = {},
-            content = {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp),
-                    text = "Here\nGoes\nThe\nContent",
-                    style = FontToken.body_sm_medium,
-                    color = ColorToken.content_primary,
-                    textAlign = TextAlign.Center,
-                )
-            },
-        )
-    }
+    DsBottomSheet(
+        title = "Title",
+        hasCloseIcon = true,
+        openBottomSheet = true,
+        onDismiss = {},
+        customCloseAction = {},
+        content = {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                text = "Here\nGoes\nThe\nContent",
+                style = FontToken.body_sm_medium,
+                color = ColorToken.content_primary,
+                textAlign = TextAlign.Center,
+            )
+        },
+    )
 }

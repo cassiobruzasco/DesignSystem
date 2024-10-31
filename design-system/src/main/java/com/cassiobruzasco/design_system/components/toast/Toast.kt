@@ -38,7 +38,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.design_system.R
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 import com.cassiobruzasco.design_system.theme.FontToken
 
 /**
@@ -67,7 +66,7 @@ fun DsToast(toast: ToastState) {
     val borderModifier = when (toast.toastType) {
         ToastType.INFO_ACCENT_TOP, ToastType.SUCCESS_ACCENT_TOP, ToastType.WARNING_ACCENT_TOP,
         ToastType.ERROR_ACCENT_TOP,
-        -> Modifier.drawBehind {
+            -> Modifier.drawBehind {
             drawLine(
                 color = toast.toastType.accentColor,
                 start = Offset(0f, 0f),
@@ -78,7 +77,7 @@ fun DsToast(toast: ToastState) {
 
         ToastType.INFO_ACCENT_LEFT, ToastType.SUCCESS_ACCENT_LEFT, ToastType.WARNING_ACCENT_LEFT,
         ToastType.ERROR_ACCENT_LEFT,
-        -> Modifier.drawBehind {
+            -> Modifier.drawBehind {
             drawLine(
                 color = toast.toastType.accentColor,
                 start = Offset(0f, 0f),
@@ -168,52 +167,50 @@ fun DsToast(toast: ToastState) {
 @Preview
 @Composable
 private fun DsToastPreview() {
-    DesignSystemTheme {
-        Column(
-            modifier = Modifier
-                .background(Color.Transparent)
-                .padding(20.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            val toast = ToastState(
-                title = "Title",
-                body = "Your details have been updated!",
-                toastType = ToastType.NEUTRAL,
-                isVisible = true,
-                onClick = {},
-            )
+    Column(
+        modifier = Modifier
+            .background(Color.Transparent)
+            .padding(20.dp)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        val toast = ToastState(
+            title = "Title",
+            body = "Your details have been updated!",
+            toastType = ToastType.NEUTRAL,
+            isVisible = true,
+            onClick = {},
+        )
 
-            repeat(17) {
-                var isVisible by remember { mutableStateOf(true) }
-                DsToast(
-                    toast.copy(
-                        toastType = when (it) {
-                            0 -> ToastType.NEUTRAL
-                            1 -> ToastType.INFO
-                            2 -> ToastType.INFO_ACCENT_LEFT
-                            3 -> ToastType.INFO_ACCENT_TOP
-                            4 -> ToastType.INFO_FILLED
-                            5 -> ToastType.SUCCESS
-                            6 -> ToastType.SUCCESS_ACCENT_LEFT
-                            7 -> ToastType.SUCCESS_ACCENT_TOP
-                            8 -> ToastType.SUCCESS_FILLED
-                            9 -> ToastType.WARNING
-                            10 -> ToastType.WARNING_ACCENT_LEFT
-                            11 -> ToastType.WARNING_ACCENT_TOP
-                            12 -> ToastType.WARNING_FILLED
-                            13 -> ToastType.ERROR
-                            14 -> ToastType.ERROR_ACCENT_LEFT
-                            15 -> ToastType.ERROR_ACCENT_TOP
-                            else -> ToastType.ERROR_FILLED
-                        },
-                        isVisible = isVisible,
-                        onClick = {
-                            isVisible = !isVisible
-                        },
-                    ),
-                )
-            }
+        repeat(17) {
+            var isVisible by remember { mutableStateOf(true) }
+            DsToast(
+                toast.copy(
+                    toastType = when (it) {
+                        0 -> ToastType.NEUTRAL
+                        1 -> ToastType.INFO
+                        2 -> ToastType.INFO_ACCENT_LEFT
+                        3 -> ToastType.INFO_ACCENT_TOP
+                        4 -> ToastType.INFO_FILLED
+                        5 -> ToastType.SUCCESS
+                        6 -> ToastType.SUCCESS_ACCENT_LEFT
+                        7 -> ToastType.SUCCESS_ACCENT_TOP
+                        8 -> ToastType.SUCCESS_FILLED
+                        9 -> ToastType.WARNING
+                        10 -> ToastType.WARNING_ACCENT_LEFT
+                        11 -> ToastType.WARNING_ACCENT_TOP
+                        12 -> ToastType.WARNING_FILLED
+                        13 -> ToastType.ERROR
+                        14 -> ToastType.ERROR_ACCENT_LEFT
+                        15 -> ToastType.ERROR_ACCENT_TOP
+                        else -> ToastType.ERROR_FILLED
+                    },
+                    isVisible = isVisible,
+                    onClick = {
+                        isVisible = !isVisible
+                    },
+                ),
+            )
         }
     }
 }
@@ -221,37 +218,35 @@ private fun DsToastPreview() {
 @Preview
 @Composable
 private fun DsToastAnimationPreview() {
-    DesignSystemTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Transparent)
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Transparent)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        var isVisible by remember { mutableStateOf(false) }
+        val toast = ToastState(
+            title = "Title",
+            body = "Your details have been updated!",
+            toastType = ToastType.INFO_ACCENT_TOP,
+            isVisible = isVisible,
+            onClick = {},
+        )
+
+        DsToast(
+            toast.copy(isVisible = isVisible),
+        )
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter,
         ) {
-            var isVisible by remember { mutableStateOf(false) }
-            val toast = ToastState(
-                title = "Title",
-                body = "Your details have been updated!",
-                toastType = ToastType.INFO_ACCENT_TOP,
-                isVisible = isVisible,
-                onClick = {},
+            Text(
+                modifier = Modifier.clickable { isVisible = !isVisible },
+                text = "show / hide toast",
+                style = FontToken.heading_xs_bold,
             )
-
-            DsToast(
-                toast.copy(isVisible = isVisible),
-            )
-
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter,
-            ) {
-                Text(
-                    modifier = Modifier.clickable { isVisible = !isVisible },
-                    text = "show / hide toast",
-                    style = FontToken.heading_xs_bold,
-                )
-            }
         }
     }
 }

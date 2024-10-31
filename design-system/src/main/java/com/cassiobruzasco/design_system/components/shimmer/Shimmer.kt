@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cassiobruzasco.design_system.theme.ColorToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 
 @Composable
 fun DsShimmer(
@@ -71,11 +70,9 @@ private val shimmerColors = listOf(
 @Preview(showBackground = true)
 @Composable
 private fun ShimmerPreview() {
-    DesignSystemTheme {
-        DsShimmer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-        )
-    }
+    DsShimmer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+    )
 }

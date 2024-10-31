@@ -50,7 +50,6 @@ import com.cassiobruzasco.design_system.R
 import com.cassiobruzasco.design_system.components.IconTapToShowText
 import com.cassiobruzasco.design_system.theme.ColorToken
 import com.cassiobruzasco.design_system.theme.FontToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 
 /**
  * DsInput composable for displaying and inserting texts with a custom label.
@@ -469,112 +468,110 @@ sealed class InputType {
 @Preview(showBackground = true)
 @Composable
 private fun TextInputWithLabelPreview() {
-    DesignSystemTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .background(ColorToken.content_white),
-            verticalArrangement = Arrangement.spacedBy(5.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            var textInsert by remember { mutableStateOf("") }
-            repeat(9) { index ->
-                when (index) {
-                    0 -> DsInput(
-                        label = "Compact Not Filled",
-                        hint = "PlaceHolder",
-                        text = textInsert,
-                        isCompact = true,
-                        isError = false,
-                        isEnabled = true,
-                        iconRes = R.drawable.ic_lock,
-                        iconPosition = IconPosition.Leading,
-                        onValueChange = { textInsert = it },
-                    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .background(ColorToken.content_white),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        var textInsert by remember { mutableStateOf("") }
+        repeat(9) { index ->
+            when (index) {
+                0 -> DsInput(
+                    label = "Compact Not Filled",
+                    hint = "PlaceHolder",
+                    text = textInsert,
+                    isCompact = true,
+                    isError = false,
+                    isEnabled = true,
+                    iconRes = R.drawable.ic_lock,
+                    iconPosition = IconPosition.Leading,
+                    onValueChange = { textInsert = it },
+                )
 
-                    1 -> DsInput(
-                        label = "Compact Filled",
-                        hint = "PlaceHolder",
-                        text = "Text inserted",
-                        isCompact = true,
-                        isError = false,
-                        isEnabled = true,
-                        onValueChange = { textInsert = it },
-                    )
+                1 -> DsInput(
+                    label = "Compact Filled",
+                    hint = "PlaceHolder",
+                    text = "Text inserted",
+                    isCompact = true,
+                    isError = false,
+                    isEnabled = true,
+                    onValueChange = { textInsert = it },
+                )
 
-                    2 -> DsInput(
-                        label = "Compact Disabled",
-                        hint = "Hint text",
-                        text = "",
-                        isCompact = true,
-                        isError = false,
-                        isEnabled = false,
-                        iconRes = R.drawable.ic_info,
-                        iconPosition = IconPosition.Trailing,
-                        onValueChange = {},
-                    )
+                2 -> DsInput(
+                    label = "Compact Disabled",
+                    hint = "Hint text",
+                    text = "",
+                    isCompact = true,
+                    isError = false,
+                    isEnabled = false,
+                    iconRes = R.drawable.ic_info,
+                    iconPosition = IconPosition.Trailing,
+                    onValueChange = {},
+                )
 
-                    3 -> DsInput(
-                        label = "Compact Disabled",
-                        hint = "",
-                        text = "Text filled",
-                        isCompact = true,
-                        isError = false,
-                        isEnabled = false,
-                        onValueChange = {},
-                    )
+                3 -> DsInput(
+                    label = "Compact Disabled",
+                    hint = "",
+                    text = "Text filled",
+                    isCompact = true,
+                    isError = false,
+                    isEnabled = false,
+                    onValueChange = {},
+                )
 
-                    4 -> DsInput(
-                        label = "Compact Invalid Input",
-                        hint = "",
-                        text = textInsert,
-                        isCompact = true,
-                        isError = true,
-                        isEnabled = true,
-                        onValueChange = { textInsert = it },
-                    )
+                4 -> DsInput(
+                    label = "Compact Invalid Input",
+                    hint = "",
+                    text = textInsert,
+                    isCompact = true,
+                    isError = true,
+                    isEnabled = true,
+                    onValueChange = { textInsert = it },
+                )
 
-                    5 -> DsInput(
-                        label = "Default Not Filled",
-                        hint = "PlaceHolder",
-                        text = textInsert,
-                        isCompact = false,
-                        isError = false,
-                        isEnabled = true,
-                        onValueChange = { textInsert = it },
-                    )
+                5 -> DsInput(
+                    label = "Default Not Filled",
+                    hint = "PlaceHolder",
+                    text = textInsert,
+                    isCompact = false,
+                    isError = false,
+                    isEnabled = true,
+                    onValueChange = { textInsert = it },
+                )
 
-                    6 -> DsInput(
-                        label = "Default Filled",
-                        hint = "PlaceHolder",
-                        text = textInsert,
-                        isCompact = false,
-                        isError = false,
-                        isEnabled = true,
-                        onValueChange = { textInsert = it },
-                    )
+                6 -> DsInput(
+                    label = "Default Filled",
+                    hint = "PlaceHolder",
+                    text = textInsert,
+                    isCompact = false,
+                    isError = false,
+                    isEnabled = true,
+                    onValueChange = { textInsert = it },
+                )
 
-                    7 -> DsInput(
-                        hint = "password",
-                        text = "",
-                        isCompact = true,
-                        isError = false,
-                        isEnabled = true,
-                        inputType = InputType.Password,
-                        onValueChange = {},
-                    )
+                7 -> DsInput(
+                    hint = "password",
+                    text = "",
+                    isCompact = true,
+                    isError = false,
+                    isEnabled = true,
+                    inputType = InputType.Password,
+                    onValueChange = {},
+                )
 
-                    else -> DsInput(
-                        hint = "password",
-                        text = "232232322",
-                        isCompact = false,
-                        isError = false,
-                        isEnabled = true,
-                        inputType = InputType.Password,
-                        onValueChange = {},
-                    )
-                }
+                else -> DsInput(
+                    hint = "password",
+                    text = "232232322",
+                    isCompact = false,
+                    isError = false,
+                    isEnabled = true,
+                    inputType = InputType.Password,
+                    onValueChange = {},
+                )
             }
         }
     }

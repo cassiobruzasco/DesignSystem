@@ -25,7 +25,8 @@ internal fun ButtonComposable(
     item: ComponentModel.Button,
     setLoading: (Boolean) -> Unit,
     setDisabled: (Boolean) -> Unit,
-    setIconPosition: (DsButtonIconPosition?) -> Unit
+    setIconPosition: (DsButtonIconPosition?) -> Unit,
+    setCompact: (Boolean) -> Unit,
 ) {
     var selectStyle by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
@@ -89,6 +90,17 @@ internal fun ButtonComposable(
             hintText = "isDisabled"
         ) {
             setDisabled(it == 0)
+        }
+
+        DsDropDown(
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp),
+            items = listOf(
+                DropdownItem("true"),
+                DropdownItem("false"),
+            ),
+            hintText = "isCompact"
+        ) {
+            setCompact(it == 0)
         }
     }
 }

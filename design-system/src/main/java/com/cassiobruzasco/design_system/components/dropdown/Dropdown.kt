@@ -39,10 +39,8 @@ import com.cassiobruzasco.design_system.R
 import com.cassiobruzasco.design_system.clickInteraction
 import com.cassiobruzasco.design_system.components.button.DsButton
 import com.cassiobruzasco.design_system.components.button.DsButtonIconPosition
-import com.cassiobruzasco.design_system.components.button.PrimaryCompactButton
 import com.cassiobruzasco.design_system.components.button.PrimaryDefaultButton
 import com.cassiobruzasco.design_system.theme.ColorToken
-import com.cassiobruzasco.design_system.theme.DesignSystemTheme
 import com.cassiobruzasco.design_system.theme.FontToken
 
 @Composable
@@ -144,7 +142,8 @@ fun DsButtonDropdown(
     DsButton(
         text = buttonText,
         style = if (isCompactButton) {
-            PrimaryCompactButton(
+            PrimaryDefaultButton(
+                isCompact = true,
                 iconRes = R.drawable.ic_arrow_down,
                 iconPosition = DsButtonIconPosition.TrailingIcon,
                 isDisabled = isDisabled,
@@ -302,33 +301,31 @@ private fun DsDropDownPreview() {
         ),
     )
 
-    DesignSystemTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-        ) {
-            Column {
-                var currentItem by remember { mutableIntStateOf(1) }
-                var currentItem2 by remember { mutableIntStateOf(0) }
-                DsDropDown(
-                    modifier = Modifier.fillMaxWidth(),
-                    topLabel = "Top Label",
-                    hintText = "Select",
-                    items = previewItems,
-                    selectedIndex = currentItem,
-                    enabled = true,
-                    onValueChange = { currentItem = it },
-                )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+    ) {
+        Column {
+            var currentItem by remember { mutableIntStateOf(1) }
+            var currentItem2 by remember { mutableIntStateOf(0) }
+            DsDropDown(
+                modifier = Modifier.fillMaxWidth(),
+                topLabel = "Top Label",
+                hintText = "Select",
+                items = previewItems,
+                selectedIndex = currentItem,
+                enabled = true,
+                onValueChange = { currentItem = it },
+            )
 
-                Spacer(modifier = Modifier.height(44.dp))
-                DsButtonDropdown(
-                    items = previewButtonItems,
-                    buttonText = "Action",
-                    isCompactButton = false,
-                ) {
-                    currentItem2 = it
-                }
+            Spacer(modifier = Modifier.height(44.dp))
+            DsButtonDropdown(
+                items = previewButtonItems,
+                buttonText = "Action",
+                isCompactButton = false,
+            ) {
+                currentItem2 = it
             }
         }
     }

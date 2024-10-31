@@ -1,6 +1,7 @@
 package com.cassiobruzasco.design_system.components.button
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -35,15 +36,16 @@ sealed class DsButtonStyle(
     open val iconPosition: DsButtonIconPosition? = null,
     open val isDisabled: Boolean = false,
     open val isLoading: Boolean = false,
-    internal val size: DsButtonSize,
+    open val isCompact: Boolean,
     internal val color: DsButtonColor,
+    internal val size: DsButtonSize = if (isCompact) DsButtonSize.Compact else DsButtonSize.Default,
     internal val textStyle: TextStyle =
         when (size) {
             DsButtonSize.Default -> FontToken.body_lg_medium
             DsButtonSize.Compact -> FontToken.body_md_medium
             else -> FontToken.body_md_medium
         },
-    internal val shape: RoundedCornerShape = RoundedCornerShape(4.dp),
+    internal val shape: RoundedCornerShape = CircleShape,
 )
 
 /**
@@ -53,8 +55,6 @@ sealed class DsButtonStyle(
  *
  * * **Default:** The largest button size (48dp minHeight, 168dp minWidth).
  * * **Compact:** A smaller button size (38dp minHeight, 154dp minWidth).
- * * **IconLg:**  A large icon button size (48dp minHeight x minWidth).
- * * **IconMd:** A medium icon button size (36dp minHeight x minWidth).
  */
 sealed class DsButtonSize(
     internal val height: Dp,
@@ -64,10 +64,6 @@ sealed class DsButtonSize(
     data object Default : DsButtonSize(48.dp, 168.dp, 16.dp)
 
     data object Compact : DsButtonSize(40.dp, 135.dp, 14.dp)
-
-    data object IconLg : DsButtonSize(48.dp, 48.dp, 24.dp)
-
-    data object IconMd : DsButtonSize(36.dp, 36.dp, 20.dp)
 }
 
 /**
